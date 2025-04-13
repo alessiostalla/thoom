@@ -1,0 +1,2 @@
+(defpackage :thoom
+  (:use :cl))
