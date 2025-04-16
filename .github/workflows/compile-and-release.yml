@@ -96,7 +96,7 @@ jobs:
 
     - name: Upload executable for Windows
       if: matrix.os == 'windows-latest' && env.cl-release == 'true'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: compiled-program-${{ matrix.os }}
         path: ${{ format('{0}.exe', env.cl-exe-basename) }} # ex. main.exe
