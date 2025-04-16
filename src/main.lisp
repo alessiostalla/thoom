@@ -43,13 +43,61 @@
 
 (defun init-status-bar ())
 
-(defun start-title ())
+(defvar *gameaction* nil)
+(defvar *demosequence* nil)
+(defvar *advancedemo* nil)
+
+(defun start-title ()
+  (setf *gameaction* nil)
+  (setf *demosequence* nil)
+  (advance-demo))
+
+(defun advance-demo ()
+  (setf *advancedemo* t))
+
+(defvar *singletics* nil) ; debug flag to cancel adaptiveness
 
 (defun doom-loop ()
   (init-graphics)
   (loop
-       :do (start-frame)))
+     :do (progn
+	   (start-frame)
+	   (if *singletics*
+	       (progn)
+	       (try-run-tics))
+	   (update-sounds)
+	   (display))))
 
 (defun init-graphics ())
 
-(defun start-frame ())
+(defvar *gametic* 0)
+(defvar *screens* (make-array 5))
+(defvar *screen-width* 320)
+(defvar *screen-height* 200)
+(defvar *setsizeneeded* nil)
+(defvar *viewactivestate* nil)
+(defvar *menuactivestate* nil)
+(defvar *inhelpscreensstate* nil)
+(defvar *fullscreen* nil)
+(defvar *oldgamestate* nil)
+(defvar *borderdrawcount* nil)
+(defvar *wipegamestate* :demo-screen)
+(defvar *gamestate* nil)
+
+(defun display ()
+  (let (redrawsbar wipe)
+    (when *setsizeneeded*
+      (execute-set-view-size)
+      (setf *oldgamestate* nil) ; force background redraw
+      (setf *borderdrawcount* 3))
+    (when (not (eql *gamestate* *wipegamestate*))
+      (setf wipe t)
+      (wipe-start-screen))
+    (when (and (eql *gamestate* :level) (not (zerop *gametic*)))
+      (hu-erase))))
+
+(defvar *wipe-scr-start*)
+
+(defun wipe-start-screen ()
+  (let ((scr (aref *screens* 2)))
+    (setf (aref *screens* 0) scr *wipe-scr-start* scr)))
