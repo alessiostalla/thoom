@@ -2,7 +2,7 @@
   :version "0.1.0"
   :author "Alessio Stalla"
   :license "AGPL"
-  :depends-on ("unix-opts")
+  :depends-on ()
   :components ((:module "src"
                 :components
                 ((:file "packages")
