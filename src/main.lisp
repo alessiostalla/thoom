@@ -22,8 +22,7 @@
       (init-hud)
       (init-status-bar)
       (start-title)
-      (doom-loop)
-    )))
+      (doom-loop)))
 
 (defun find-response-file ())
 
