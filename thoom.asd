@@ -6,8 +6,10 @@
   :components ((:module "src"
                 :components
                 ((:file "packages")
+		 (:file "def")
 		 (:file "video")
 		 (:file "hu")
+		 (:file "net")
 		 (:file "main"))))
   :description "A DOOM implementation in Lisp"
   :in-order-to ((test-op (test-op "thoom/tests"))))

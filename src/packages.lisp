@@ -1,2 +1,3 @@
 (defpackage :thoom
-  (:use :cl))
+  (:use :cl)
+  (:export #:main))
